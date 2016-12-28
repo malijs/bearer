@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/malijs/mali-bearer.git"
+    "url": "git+https://github.com/malijs/bearer.git"
   },
   "author": {
     "name": "Bojan D.",
@@ -13,9 +13,9 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/malijs/mali-bearer/issues"
+    "url": "https://github.com/malijs/bearer/issues"
   },
-  "homepage": "https://github.com/malijs/mali-bearer",
+  "homepage": "https://github.com/malijs/bearer",
   "keywords": [
     "mali",
     "grpc",
