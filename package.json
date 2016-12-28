@@ -1,6 +1,6 @@
 {
   "name": "mali-bearer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Bearer token authorization metadata middleware for Mali",
   "main": "index.js",
   "repository": {
