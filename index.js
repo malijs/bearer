@@ -1,4 +1,4 @@
-const auth = require('mali-metadata-auth')
+const fieldAuth = require('mali-metadata-field-auth')
 
 /**
  * Mali bearer authorization metadata middleware.
@@ -6,8 +6,15 @@ const auth = require('mali-metadata-auth')
  * @module mali-bearer
  *
  * @param  {Options} options
- * @param  {String} options.error optional string for errors to throw in case authorization is not present
- *                               Default: <code>"Not Authorized"</code>
+ * @param  {String|Object|Function} options.error optional Error creation options.
+*                                                If <code>String</code> the message for Error to throw in case
+*                                                authorization is not present.
+*                                                If <code>Object</code> the error options with <code>message</code>,
+*                                                <code>code</code>, and <code>metadata</code> properties. See <code>create-grpc-error</code>
+*                                                module.
+*                                                If <code>Function</code> a function with signature <code>(ctx)</code>
+*                                                called to create an error. Must return an <code>Error</code> instanse.
+*                                                Default: <code>"Not Authorized"</code>
  * @param  {Function} fn The middleware function to execute with signature <code>(token, ctx, next)</code>
  *
  * @example
@@ -24,26 +31,5 @@ module.exports = function (options, fn) {
     options = {}
   }
 
-  if (typeof options.error !== 'string' || !options.error) {
-    options.error = 'Not Authorized'
-  }
-
-  return auth(options, (authorization, ctx, next) => {
-    if (!authorization) throw new Error(options.error)
-
-    const parts = authorization.split(' ')
-    if (parts.length !== 2) throw new Error(options.error)
-
-    const scheme = parts[0]
-    const credentials = parts[1]
-
-    let token
-    if (/^Bearer$/i.test(scheme)) {
-      token = credentials
-    }
-
-    if (!token) throw new Error(options.error)
-
-    return fn(token, ctx, next)
-  })
+  return fieldAuth('Bearer', options, fn)
 }
