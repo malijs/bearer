@@ -62,7 +62,7 @@ test.before('should dynamically create service', t => {
 test('Should fail with fn1 withouth metadata', async t => {
   t.plan(2)
   const error = await t.throws(client.fn1({ message: 'hello' }))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should fail with fn1 without authorization', async t => {
@@ -70,7 +70,7 @@ test('Should fail with fn1 without authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('foo', 'bar')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should fail with fn1 without correct authorization', async t => {
@@ -78,7 +78,7 @@ test('Should fail with fn1 without correct authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'bar')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should fail with fn1 without correct bearer authorization', async t => {
@@ -86,7 +86,7 @@ test('Should fail with fn1 without correct bearer authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should fail with fn1 without correct bearer authorization 2', async t => {
@@ -94,7 +94,7 @@ test('Should fail with fn1 without correct bearer authorization 2', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer ')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should fail with fn1 without correct bearer authorization 3', async t => {
@@ -102,7 +102,7 @@ test('Should fail with fn1 without correct bearer authorization 3', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer foo')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Invalid token')
+  t.true(error.message.indexOf('Invalid token') >= 0)
 })
 
 test('Should fail with fn1 without correct bearer authorization 4', async t => {
@@ -110,7 +110,7 @@ test('Should fail with fn1 without correct bearer authorization 4', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer1111')
   const error = await t.throws(client.fn1({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
 })
 
 test('Should work with fn1 with correct authorization', async t => {
@@ -134,7 +134,7 @@ test('Should work with fn1 with correct authorization 2', async t => {
 test('Should fail with fn2 withouth metadata', async t => {
   t.plan(2)
   const error = await t.throws(client.fn2({ message: 'hello' }))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
 })
 
 test('Should fail with fn2 without authorization', async t => {
@@ -142,7 +142,7 @@ test('Should fail with fn2 without authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('foo', 'bar')
   const error = await t.throws(client.fn2({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
 })
 
 test('Should fail with fn2 without correct authorization', async t => {
@@ -150,7 +150,7 @@ test('Should fail with fn2 without correct authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'bar')
   const error = await t.throws(client.fn2({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
 })
 
 test('Should fail with fn2 without correct authorization 2', async t => {
@@ -158,7 +158,7 @@ test('Should fail with fn2 without correct authorization 2', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer foobar')
   const error = await t.throws(client.fn2({ message: 'hello' }, meta))
-  t.is(error.message, 'Invalid token')
+  t.true(error.message.indexOf('Invalid token') >= 0)
 })
 
 test('Should work with fn2 with correct authorization', async t => {
@@ -182,7 +182,7 @@ test('Should work with fn2 with correct authorization 2', async t => {
 test('Should fail with fn3 withouth metadata', async t => {
   t.plan(4)
   const error = await t.throws(client.fn3({ message: 'hello' }))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -193,7 +193,7 @@ test('Should fail with fn3 without authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('foo', 'bar')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -204,7 +204,7 @@ test('Should fail with fn3 without correct authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'bar')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -215,7 +215,7 @@ test('Should fail with fn3 without correct bearer authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -226,7 +226,7 @@ test('Should fail with fn3 without correct bearer authorization 2', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer ')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -237,7 +237,7 @@ test('Should fail with fn3 without correct bearer authorization 3', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer foo')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -248,7 +248,7 @@ test('Should fail with fn3 without correct bearer authorization 4', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer1111')
   const error = await t.throws(client.fn3({ message: 'hello' }, meta))
-  t.is(error.message, 'Not Authorized')
+  t.true(error.message.indexOf('Not Authorized') >= 0)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
   t.is(md.code, 'INVALID_TOKEN')
@@ -275,7 +275,7 @@ test('Should work with fn3 with correct authorization 2', async t => {
 test('Should fail with fn4 withouth metadata', async t => {
   t.plan(5)
   const error = await t.throws(client.fn4({ message: 'hello' }))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -287,7 +287,7 @@ test('Should fail with fn4 without authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('foo', 'bar')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -299,7 +299,7 @@ test('Should fail with fn4 without correct authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'bar')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -311,7 +311,7 @@ test('Should fail with fn4 without correct bearer authorization', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -323,7 +323,7 @@ test('Should fail with fn4 without correct bearer authorization 2', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer ')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -335,7 +335,7 @@ test('Should fail with fn4 without correct bearer authorization 3', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer foo')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -347,7 +347,7 @@ test('Should fail with fn4 without correct bearer authorization 4', async t => {
   const meta = new grpc.Metadata()
   meta.add('Authorization', 'Bearer4444')
   const error = await t.throws(client.fn4({ message: 'hello' }, meta))
-  t.is(error.message, 'Unauthorized')
+  t.true(error.message.indexOf('Unauthorized') >= 0)
   t.is(error.code, 400)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
