@@ -1,5 +1,7 @@
 # mali-bearer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/bearer.svg)](https://greenkeeper.io/)
+
 Mali bearer token metadata authorization middleware
 
 [![npm version](https://img.shields.io/npm/v/mali-bearer.svg?style=flat-square)](https://www.npmjs.com/package/mali-bearer)
