@@ -1,9 +1,9 @@
-const fieldAuth = require('mali-metadata-field-auth')
+const fieldAuth = require('@malijs/metadata-field-auth')
 
 /**
  * Mali bearer authorization metadata middleware.
  * If the call has metadata with "authorization" string property with "Bearer <token>" then specified function is called
- * @module mali-bearer
+ * @module @malijs/bearer
  *
  * @param  {Options} options
  * @param  {String|Object|Function} options.error optional Error creation options.
@@ -18,7 +18,7 @@ const fieldAuth = require('mali-metadata-field-auth')
  * @param  {Function} fn The middleware function to execute with signature <code>(token, ctx, next)</code>
  *
  * @example
- * const bearer = require('mali-bearer')
+ * const bearer = require('@malijs/bearer')
  *
  * app.use(bearer(async (token, ctx, next) => {
  *   console.log(token)

@@ -1,16 +1,15 @@
-# mali-bearer
+# @malijs/bearer
 
 Mali bearer token metadata authorization middleware
 
-[![npm version](https://img.shields.io/npm/v/mali-bearer.svg?style=flat-square)](https://www.npmjs.com/package/mali-bearer)
+[![npm version](https://img.shields.io/npm/v/@malijs/bearer.svg?style=flat-square)](https://www.npmjs.com/package/@malijs/bearer)
 [![build status](https://img.shields.io/travis/malijs/bearer/master.svg?style=flat-square)](https://travis-ci.org/malijs/bearer)
-[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/bearer.svg)](https://greenkeeper.io/)
 
 ## API
 
-<a name="module_mali-bearer"></a>
+<a name="module_@malijs/bearer"></a>
 
-### mali-bearer
+### @malijs/bearer
 Mali bearer authorization metadata middleware.
 If the call has metadata with "authorization" string property with "Bearer <token>" then specified function is called
 
@@ -22,16 +21,14 @@ If the call has metadata with "authorization" string property with "Bearer <toke
 | fn | <code>function</code> | The middleware function to execute with signature <code>(token, ctx, next)</code> |
 
 **Example**  
-
 ```js
-const bearer = require('mali-bearer')
+const bearer = require('@malijs/bearer')
 
 app.use(bearer(async (token, ctx, next) => {
   console.log(token)
   await next()
 })
 ```
-
 ## License
 
   Apache-2.0
